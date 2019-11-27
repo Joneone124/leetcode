@@ -47,3 +47,5 @@ class Solution(object):
         
         #哈希是什么，为什么快？
         #https://www.cnblogs.com/acm-bingzi/p/hash.html
+        #哈希查找
+        #https://blog.csdn.net/weixin_41362649/article/details/81865829
