@@ -1,0 +1,33 @@
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        '''
+        mymethod
+        a = ''
+        list1 =[]
+        for i in digits:
+            a += str(i)
+        a = int(a)
+        a += 1
+        a = str(a)
+        for i in a:
+            list1.append(int(i))
+        return list1
+        '''
+        #从后往前遍历，注意最前面是-1
+        for i in range(len(digits)-1, -1, -1):
+            #每次最后一位先+1
+            digits[i] += 1
+            #令最后一位的新值为和10取余后的值，如果+1后是10(即原来是9),现在和10取余结果为0，也就是+1后进位了，要继续往前遍历
+            #如果+1后不是10，则没有进位，和10取余结果是其本身，直接返回就好
+            digits[i] = digits[i] % 10
+            if digits [i] != 0:
+                return digits
+        #能遍历到头，说明原来是99999...
+        #则单独给它100000...
+        newdigits = [0] * (len(digits)+1)
+        newdigits[0] = 1
+        return newdigits
