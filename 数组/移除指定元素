@@ -1,0 +1,25 @@
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        '''
+        #pop操作会删除一个元素后，把后面的元素自动前移，倒序的话，把删去的窟窿以后的元素往前移，对前面没有遍历过的元素不会有影响
+        #即反向遍历不会在删除元素后继续向前移，所以不存在多个连续的重复数字漏删的问题
+        for i in range(len(nums)-1,-1,-1):
+            if nums[i] == val:
+                nums.pop(i)
+        return len(nums)
+        #但是pop方法内部实现复杂占用内存较多，这仍不是一个好方法。
+        '''
+        #最佳方法依然是双指针，快指针j在前开拓，不断将新的列表元素与val比较，与val不同的元素会交给慢指针i所在的位置
+        #然后慢指针i+1
+        #最后i之前的元素全是不等于val的
+        i = 0
+        for j, n in enumerate(nums):
+            if nums[j] != val:
+                nums[i] = nums[j]
+                i += 1
+        return i
