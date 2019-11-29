@@ -1,0 +1,49 @@
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        '''
+        #这种方法其实还不错
+        #遍历一遍，遇0弹出，末尾补0
+        #但是似乎还能更优，用双指针试试
+        #我似乎感觉到了我的进步。。。。
+        sum = 0
+        for i in range(len(nums)-1,-1,-1):
+            if nums[i] == 0:
+                nums.pop(i)
+                nums.append(0)
+                # sum += 1
+        return nums
+        '''
+
+
+
+        '''
+        #这个方法已经非常棒了，但是会发现用双指针做本题有一个特点
+        #快指针和慢指针不在同一位置时，快指针在给慢指针赋完值后就没用了，可以直接把快指针所在元素置0
+        #这样就不需要再while循环，把剩下的置0了        
+        i = 0
+        for j in range(len(nums)):
+            if nums[j] != 0:
+                nums[i] = nums[j]
+                i += 1
+        while i < len(nums):
+            nums[i] = 0
+            i += 1
+        return nums
+        '''
+
+
+        i = 0
+        for j in range(len(nums)):
+            #如果快指针和慢指针在同一位置，这个位置不能被置0，
+            #如果置0，上一步的nums[i] = nums[j]就白赋值了
+            if nums[j] != 0 and j != i:
+                nums[i] = nums[j]
+                nums[j] = 0
+                i += 1
+            elif nums[j] != 0 and j == i:
+                i += 1
+        return nums
