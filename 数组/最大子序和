@@ -1,0 +1,49 @@
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        '''mymethod
+        #max记录以第i个元素开头的序列中最大的子序列
+        max = nums[0]
+        #finamax为总体最大的子序列
+        finamax =max
+        #sum累计求各个子序列的和
+        sum = 0
+        for i,n in enumerate(nums):
+            #先给sum赋第一个元素的值，说不定第一个元素就是最大自序和呢
+            sum = nums[i]
+            #因为下面的j从i+1开始，这里涉及到指针越界的问题，所以在倒数第二个元素停下
+            if i < len(nums)-1:
+                for j in range(i+1, len(nums)):
+                    #如果目前的子序列和大于max，就交换
+                    if sum >= max:
+                        max = sum
+                    #这里放在判断后面再累加，是因为如果在判断前累加会遗漏最大子序和是单一元素的情况
+                    sum += nums[j]
+                #如果判断后面再累加，就会在最后少判断一次，在这里补上
+                if sum >= max:
+                    max = sum
+                #i-1个max中找到最大的finamax
+                if max >= finamax:
+                    finamax = max
+            else:
+                #以最后一个元素为开头（同时是结尾）的子序在刚开始的循环中被排除掉了，它也可能是最大子序和
+                if nums[len(nums)-1] >= finamax:
+                    finamax = nums[len(nums)-1]
+        return finamax
+        '''
+        #采用动态规划
+        #nums[i-1]并不是数组前一项的意思，而是到前一项为止的最大子序和
+        #和0比较是因为只要大于0，就可以相加构造最大子序和
+        #如果小于0则相加为0，nums[i]=nums[i]，相当于最大子序和又重新计算。
+        #其实是一边遍历一边计算最大序和
+        for i in range(1, len(nums)):
+            #前一项的子序和只要大于0，都是有益的，需要加上，构成最新的最大子序和
+            #并把这个目前的最大子序和存入i中
+            nums[i]= nums[i] + max(nums[i-1], 0)
+        #最后返回i个当时是最大子序和的数值中的最大值
+        return max(nums)
+        #什么是动态规划？
+        #https://www.cnblogs.com/caiyishuai/p/9047991.html
