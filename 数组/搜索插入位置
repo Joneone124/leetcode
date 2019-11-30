@@ -32,6 +32,6 @@ class Solution(object):
             if target == nums[int((i + j) / 2)]:
                 return int((i + j) / 2)
             #经过循环前的判断，现在已经不可能出现i，j重合，他们之间会止步在相差1，此时，说明数组里没有与target相等的，且target在i和j之间
-            if (j - i) <= 1:
+            if (j - i) == 1:
                 return j
             #这个思路很棒，但还可以在此基础上简化，在循环体中就处理边界问题
