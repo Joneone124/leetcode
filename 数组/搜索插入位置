@@ -1,0 +1,37 @@
+#第35题
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+
+        #运用二分法的思想，类似于猜数字
+        #i为左范围，j为右范围
+        i = 0
+        j = len(nums) - 1
+        #边界问题很讨厌，在最前面解决掉
+        #这三句防止了数组里只有一个元素，以及只有两个元素的情况下，前后指针不能动的情况
+        #也防止了target比数组最大值大，最小值小的尖锐情况
+        #最终通过while循环得到的结果，都是分别执行过两个比大小判断至少一次的数据
+        if target <= nums[0]:
+            return 0
+        if target == nums[j]:
+            return j
+        if target > nums[j]:
+            return j + 1
+        while True:
+            #如果target比中位数小，则右边界换为中位数
+            if target < nums[int((i + j) / 2)]:
+                j = int((i + j) / 2)
+            #如果target比中位数大，则左边界换位中位数
+            if target > nums[int((i + j) / 2)]:
+                i = int((i + j) / 2)
+            #如果刚好和中位数相等，输出索引位置即可
+            if target == nums[int((i + j) / 2)]:
+                return int((i + j) / 2)
+            #经过循环前的判断，现在已经不可能出现i，j重合，他们之间会止步在相差1，此时，说明数组里没有与target相等的，且target在i和j之间
+            if (j - i) <= 1:
+                return j
+            #这个思路很棒，但还可以在此基础上简化，在循环体中就处理边界问题
