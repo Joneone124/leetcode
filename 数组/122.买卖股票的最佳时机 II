@@ -1,0 +1,13 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        #第i天的总收益
+        last = 0
+        #当前情况下之前曾出现过的最高收益,不需要了
+        # profit = 0
+        for i in range(1,len(prices)):
+            #每新来一个价格，只要让我当天亏了，我就在前一天卖出，再把你买入
+            #即把每一个正项的，有益的差值都加在身上
+            last = max(last, last + prices[i] - prices[i-1])
+            #不需要记录曾经最大值了，因为last一直是目前的最大值
+            # profit = max(profit, last)
+        return last
