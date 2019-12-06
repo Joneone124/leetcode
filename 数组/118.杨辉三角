@@ -1,0 +1,51 @@
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        '''mymethod
+        #把它看成直角三角形，贴着左边
+        #先拿出特殊情况
+        if numRows == 0:
+            return[]
+        if numRows == 1:
+            return [[1],]
+        else:
+            #第0行先写好，
+            a = [[1],]
+            #从1行开始，这样才能用上一行的数
+            for i in range(1,numRows):
+                b = []
+                for j in range(i+1):
+                    #如果左上角没数
+                    if j == 0:
+                        x = 0
+                    else:
+                        x = a[i-1][j-1]
+                    #如果右上角没数
+                    if j == i:
+                        y = 0
+                    else:
+                        print(j)
+                        y = a[i-1][j]
+                    b.append(x+y)
+                a.append(b)
+            return a
+            #这是一个二维数组，不可能通过一次循环实现，所以解析也只是代码更简单而已，时间复杂度一样
+            '''
+        triangle = []
+        for row_num in range(numRows):
+            # 最左和最右都是1
+            #先把数组整出来
+            row = [None for _ in range(row_num+1)]
+            #左右置1
+            row[0], row[-1] = 1, 1
+            # Each triangle element is equal to the sum of the elements
+            # above-and-to-the-left and above-and-to-the-right.
+            for j in range(1, len(row)-1):
+                row[j] = triangle[row_num-1][j-1] + triangle[row_num-1][j]
+
+            triangle.append(row)
+
+        return triangle
