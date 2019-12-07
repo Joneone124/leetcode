@@ -1,0 +1,54 @@
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        '''mymethod
+        #同向双指针，时间复杂度n^2,相对于暴力求解，只改善了常数项。当数组无穷大时，相当于没改善
+        #对于循环来说，不管是从头到尾遍历，还是只循环部分，一次循环的时间复杂度都是n
+        #因为当数组无穷大时，遍历一遍和只循环部分都是无穷大，无穷大的常数分之一还是无穷大
+        #算时间复杂度按最坏情况算
+        #本题循环中，慢指针i走一步，j遍历一回。最坏情况是j一直没找到，遍历到结束
+        #这样的话，如果数组长度为n，那么j一共遍历了n回，因为i每回都向前移一步，
+        #所以j每回都少访问一个元素，直到最后一次循环j只访问一个元素，
+        #也就是说j相当于每回访问n/2个元素，一共循环了n回，总共访问n*（n/2)个元素
+        #类似于一个矩形沿对角线被砍成了直角三角形
+        #虽然极大减少了访问元素的数量，但n无穷大时，n/2和n没有区别，n*（n/2)相当于n^2
+        #所以时间复杂度不变
+        i = 0 #慢指针
+        j = 1 #快指针
+        while True:
+            #如果等于目标值，直接返回
+            if numbers[i] + numbers[j] == target and i < j:
+                return [i+1,j+1]
+            如果大于目标值，慢指针i向前移一位，快指针回到慢指针身边
+            if numbers[i] + numbers[j] > target:
+                i += 1
+                j = i
+                continue
+            如果快指针走到头依然没结果，同样，慢指针i向前移一位，快指针回到慢指针身边
+            if j == len(numbers)-1:
+                i += 1
+                j = i
+            #每次前进的快指针
+            j +=1
+        '''
+        
+        
+        #newmethod
+        #反向双指针
+        i = 0 #左指针
+        j = len(numbers)-1 #右指针
+        while True:
+            #如果比目标值小，左指针+1
+            if numbers[i] + numbers[j] < target:
+                i += 1
+            #如果比目标值大，右指针-1
+            if numbers[i] + numbers[j] > target:
+                j -= 1
+            #如果相等，返回结果
+            if numbers[i] + numbers[j] == target:
+                return [i+1, j+1]
+            #最坏情况下，每个元素都被遍历一遍，时间复杂度为n
