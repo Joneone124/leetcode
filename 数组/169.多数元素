@@ -1,0 +1,24 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #这题正常思路就是这样，
+        #还有一些牛逼解法和傻逼解法，这不重要
+        #注意理解哈希和字典的不同
+        a = {}
+        for i in nums:
+            #如果字典里没这个数，就安排上
+            if a.get(str(i)) is None:
+                a.update({str(i):1})
+            #如果有，就数量+1
+            else:
+                a[str(i)] += 1
+            #达到众数要求标准可退出
+            if a.get(str(i)) > len(nums)/2:
+                return i
+                
+                
+           #哈希和字典的区别
+           #http://www.360doc.com/content/17/1108/12/541242_702028503.shtml
