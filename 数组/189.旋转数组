@@ -1,0 +1,38 @@
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        #可以理解为一排同学换座位
+        #第0个位置同学要换到第k个位置，第k个位置的同学被挤出去，去坐第k+k个位置
+        #这样下来走一圈有可能会回到第0个位置，而期间有的同学没换过位置
+        #如果转一圈回来没有回到第0个位置，证明可以多转几次让所有同学都换座位
+        #但是一旦又回到第0个位置，说明这是一个圈，再走下去只会重复让已经换过座位的同学再
+        #所以要判断，如果要回到原点了，就把起始位置设为第1个位置从第一个位置开始继续换
+        #一共有多少个同学，总共换多少次即可
+
+
+        start = 0 #记录转一圈回来后，又回到的位置
+        i = 0 #目前位置
+        x = 0 #要去的位置
+        temp = nums[start] #替换变量，存最开始想要换位置的同学
+        for index in range(len(nums)): #有几个同学换几次
+            x = (i + k)%len(nums) #目标位置
+            temp,nums[x] = nums[x],temp #交换
+            #交换完成，本次就算完事了，后面是为下一次交换做准备
+            #如果已经执行到最后了，再为下一次准备就会溢出
+            if index == len(nums) - 1:
+                break
+            if x == start: #如果要回到原点了
+                #就定位到之前刚开始原点的后一个
+                start += 1 
+                #替换变量也要存上最开始要换的同学
+                temp = nums[start]
+                i = start
+                #保持住，就不往后执行了
+                continue
+            #通常情况就往后移
+            i = x
+        return nums
