@@ -1,0 +1,22 @@
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        #一个空字典
+        dic1 = {}
+        #因为要找到是否存在重复，所以必须要遍历一次
+        for i in range(len(nums)):
+            #字典键为列表的值，值为列表的索引，如果为空，添加该键值对
+            if dic1.get(nums[i]) is None:
+                dic1[nums[i]] = i
+            else:
+                #如果不为空，先判断一下之前的索引是否符合要求
+                if i - dic1[nums[i]] <= k:
+                    return True
+                #不符合的话就更新值，继续循环
+                else:
+                    dic1[nums[i]] = i
+        return False
