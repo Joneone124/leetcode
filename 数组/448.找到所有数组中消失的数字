@@ -1,0 +1,35 @@
+class Solution(object):
+    def findDisappearedNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        '''mymethod
+        #由于存在判断是要把列表遍历一遍，所以，在列表循环中用存在判断时间复杂度会变n^2
+        a = []
+        s = []
+        #先给出全的列表
+        for i in range(1,len(nums)+1):
+            a.append(i)
+        print(a)
+        for i in a:
+            #判断全的列表中，那个元素是nums中没有的，没有就添加到新列表中，最后返回新列表
+            if not i in nums:
+                s.append(i)
+        return s
+        '''
+        
+        #newmethod
+        #先给出全的列表，列表的索引减一为列表的值
+        a = []
+        for i in range(1,len(nums)+1):
+            a.append(i)
+        #如果nums的元素值在全列表里有，就把全列表里这个值改为*，
+        #最后剩下的不是*的就是nums里没有的
+        for i in nums:
+            a[i-1] = '*'
+        s = []
+        for i in a:
+            if i !='*':
+                s.append(i)
+        return s
