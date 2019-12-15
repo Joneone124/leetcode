@@ -1,0 +1,35 @@
+class Solution(object):
+    def findPairs(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        '''mymethod
+        #时间复杂度太高，不好
+        # a = []
+        # if k < 0:
+        #     return 0
+        # for i in range(len(nums)-1):
+        #     for j in range(i+1,len(nums)):
+        #         if nums[i] - nums[j] == k or nums[i] - nums[j] == -k:
+        #             if [nums[i],nums[j]] not in a and [nums[j],nums[i]] not in a:
+        #                 a.append([nums[i],nums[j]])
+        # return len(a)
+        '''
+        #newmethod
+        #应对测试里的奇葩用例
+        if k < 0:
+            return 0
+        #saw存放无重复的已遍历元素
+        #diff存放符合要求数对的较小的元素
+        saw,diff = set(),set()
+        for i in nums:
+            #两个判断用来将所有符合要求数对中的较小元素找出来
+            if i - k in saw:
+                diff.add(i-k)
+            if i + k in saw:
+                diff.add(i)
+            #对saw的添加只能放在判断后，因为如果放在判断前，就会判断到该数本身
+            saw.add(i)
+        return len(diff)
