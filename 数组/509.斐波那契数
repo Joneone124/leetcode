@@ -1,0 +1,25 @@
+class Solution(object):
+    def fib(self, N):
+        """
+        :type N: int
+        :rtype: int
+        """
+        #简单问题
+        #设置j,k充当前一二项
+        j = 0
+        k = 1
+        #如果N为0就第一项
+        if N == 0:
+            return j
+        elif N == 1:
+        #N为1就第二项
+            return k
+        #其他情况才能用公式
+        else:
+            #如何确定是N+1呢，想一下，N=3时，只循环一回
+            for i in range(2,N+1):
+                i = j + k
+                j = k
+                k = i
+            return k
+                
