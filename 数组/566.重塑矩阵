@@ -1,0 +1,48 @@
+class Solution(object):
+    def matrixReshape(self, nums, r, c):
+        """
+        :type nums: List[List[int]]
+        :type r: int
+        :type c: int
+        :rtype: List[List[int]]
+        """
+        '''mymethod
+        #如果不能恰好放下，就无法变化
+        if r * c != len(nums)*len(nums[0]):
+            return nums
+        else:
+            a = [] #存放nums中所有元素到一个一维列表
+            b = [] #存放每个子列表
+            d = [] #最终结果
+            #先做好a
+            for i in range(len(nums)):
+                for j in range(len(nums[i])):
+                    a.append(nums[i][j])
+            #x用于计a的下标索引
+            x = 0
+            for i in range(r):
+                for j in range(c):
+                    #制作子列表
+                    d.append(a[x])
+                    x += 1
+                #添加子列表到结果列表中
+                b.append(d)
+                #清空子列表，进行下一次制作
+                d = []
+            return b
+            #时间复杂度太高，不好
+        '''
+        #newmethod
+        if len(nums)*len(nums[0])!=r*c:
+            return nums
+        #用于把矩阵中所有的元素化为一列列表
+        l=[]
+        #返回结果
+        new=[]
+        #列表是可以拼接的
+        for i in range(len(nums)):
+            l+=nums[i]
+        #依次循环，用每行的列数c来表示步长，截取指定长度列表，添加到new中
+        for i in range(0,len(l),c):
+            new.append(l[i:i+c])
+        return new
