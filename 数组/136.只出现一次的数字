@@ -1,0 +1,13 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #运用异或的性质，相同的两个数异或为0，0和任何数异或，结果为任何数
+        a = 0
+        #因为所有元素中只有一个是单个的，剩下的都是成对出现的
+        #成对出现的元素累积异或，结果为0，0和剩下的哪个元素异或，得到结果
+        for i in nums:
+            a = a ^ i
+        return a
