@@ -1,0 +1,12 @@
+class Solution(object):
+    def arrayPairSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #先排序，再取两个里面较小的
+        nums.sort()
+        max = 0
+        for i in range(0,len(nums)-1,2):
+            max += min(nums[i],nums[i+1])
+        return max
