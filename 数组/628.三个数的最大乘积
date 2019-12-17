@@ -1,0 +1,28 @@
+class Solution(object):
+    def maximumProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #先排序
+        nums.sort()
+        #会发现，三数相乘取最大，如果结果是正数，只有两种情况，三个最大正数相乘或者
+        #一个最大正数和两个最小负数相乘
+        #如果结果是负数，说明最大的数都是负数，只是在负数中挑三个最接近0的
+
+        #如果所有的数都小于0，就最后三个最大的相乘
+        if nums[-1] < 0:
+            return nums[-1]*nums[-2]*nums[-3]
+        #如果倒数第一个数大于等于0，就用倒数第一个数乘最小的两个数
+        if nums[-1] >= 0 and nums[-2] < 0 and nums[-3] < 0:
+            return nums[0]*nums[1]*nums[-1]
+        #如果倒数一二都大于等于0，就倒数第一个和最小的两个数相乘
+        if nums[-1] >= 0 and nums[-2] >= 0 and nums[-3] < 0:
+            return nums[0]*nums[1]*nums[-1]
+        #如果最大的三个都大于0，就从最大三个，和，最后一个与前两个最小的相乘，中选一个最大的
+        if nums[-3] >= 0:
+            return max(nums[-1]*nums[-2]*nums[-3],nums[0]*nums[1]*nums[-1])
+        #再思考一下，其实排好序后，只用比较
+        #nums[-1]*nums[-2]*nums[-3]和nums[0]*nums[1]*nums[-1])谁更大即可
+        #根本不用分那么多情况
+        #再思考，其实排序也不需要，只要找到最大的三个数和最小的两个数就好了
