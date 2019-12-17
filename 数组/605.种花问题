@@ -1,0 +1,32 @@
+class Solution(object):
+    def canPlaceFlowers(self, flowerbed, n):
+        """
+        :type flowerbed: List[int]
+        :type n: int
+        :rtype: bool
+        """
+        num = 0 #用于统计一共可以加几朵花
+        count = 0 #用于记录连续为零的长度，逢3置0
+        i = 0 #下标
+        #用于解决开头两个0，结尾两个0的特殊入选情况，就都给它们加个0，让他们入选
+        flowerbed = [0] + flowerbed + [0]
+        while i < len(flowerbed):
+            #如果是0，count自加
+            if flowerbed[i] == 0:
+                count += 1
+            #遇到1，count就置0
+            if flowerbed[i] == 1:
+                count = 0
+            #连续三个0，可以在中间种一朵花，count清零，
+            if count == 3:
+                num += 1
+                count = 0
+                #同时这朵花左边的空地也可能充当下一朵花右边的空地
+                #所以i也减一
+                #也可以给中间置1，不再给i减一，两种方法都可以
+                i -= 1
+            i += 1
+        if num < n:
+            return False
+        else:
+            return True
