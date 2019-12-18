@@ -1,0 +1,22 @@
+class Solution(object):
+    def findLengthOfLCIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #如果没数，则0
+        if len(nums) == 0:
+            return 0
+        #只要有数，至少是1
+        maxcount = 1 #历史最大长度
+        count = 1 #当前长度
+        for i in range(len(nums)-1):
+            #如果小于后一个元素，则count自加
+            if nums[i] < nums[i+1]:
+                count += 1
+            else:
+                #如果不是，则和当前的连续递增列结束了，把它的长度和历史最大长度比较，谁大取谁
+                #如果想不通此时应不应该给count自加一下再和maxcount比较，可以举例子
+                maxcount = max(maxcount,count)
+                count = 1
+        return max(maxcount,count)
