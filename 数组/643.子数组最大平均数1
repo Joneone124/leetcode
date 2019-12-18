@@ -1,0 +1,25 @@
+class Solution(object):
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        sum = 0 #用于记录最大连续和
+        #把窗体填满
+        for i in range(k):
+            sum += float(nums[i])
+        #temp是用于交换的变量
+        temp = sum
+        #i在前，j断后
+        j = 0
+        #从第一次填满窗口后开始遍历
+        for i in range(k,len(nums)):
+            #加上新头部，减去旧尾部
+            temp += nums[i]
+            temp -= nums[j]
+            j += 1
+            #如果最新的窗口比原来大，那就让sum存储最新的，否则sum依然拿之前最大的
+            if temp > sum:
+                sum = temp
+        return float(sum/k)
