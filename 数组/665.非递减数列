@@ -1,0 +1,34 @@
+class Solution(object):
+    def checkPossibility(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        #复制一个nums
+        numscopy = nums[:]
+        #判断靠右行不行
+        flag1 = True
+        #判断靠左行不行
+        flag2 = True
+        #靠右试一试，不行flag1给False
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                nums[i] = nums[i+1]
+                break
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                flag1 = False
+        #nums归位，试试靠左行不行，不行flag2给False
+        nums = numscopy[:]
+        for i in range(1,len(nums)):
+            if nums[i] < nums[i - 1]:
+                nums[i] = nums[i - 1]
+                break
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                flag2 = False
+        #如果都不行，返回False
+        if flag1 is False and flag2 is False:
+            return False
+        else:
+            return True
