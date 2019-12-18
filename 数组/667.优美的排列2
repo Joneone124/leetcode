@@ -1,0 +1,37 @@
+class Solution(object):
+    def constructArray(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[int]
+        """
+        #纯找规律
+        #先把列表整出来，用于挑选元素到numsc中
+        nums = []
+        for i in range(n):
+            nums.append(i+1)
+        #复制一份，用于存放结果
+        numsc = nums[:]
+        #用于正负变换
+        change = -1
+        #用于存每次要从nnums的哪个下标中取，刚开始a=k
+        a = k
+        for i in range(1,len(nums)):
+            #如果k减到0了，就退出
+            if k == 0:
+                break
+            numsc[i] = nums[a]
+            #开始准备下一次的a
+            #规律：假设数组是[1，2，3，4，5]，k为4，因为要有4个不同的差值，
+            #其实就是4，3，2，1这四个
+            #开头的1不动，下一个为5，才能和1差4，再下一个为2，才能和5差3，
+            #再下一个是4，才能和2差2，再下一个是3，才能和4差1，而且是一正一负的
+            #即新数组是[1，5，2，4，3]
+            #从5开始，下标是4，1，3，2
+            #4和1差3，正的。1和3差2，负的。3和2差1，正的。
+            #可看出第一个变换的元素，即1后边的元素的下标一定是原始列表的第k个，
+            #然后依次按正负缩小差距
+            a = a + change * (k-1)
+            k -= 1
+            change = change*(-1)
+        return numsc
