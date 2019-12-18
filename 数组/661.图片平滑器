@@ -1,0 +1,72 @@
+class Solution(object):
+    def imageSmoother(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        #又臭又长的代码
+        #sum存周围数的累加
+        sum = 0
+        #累加一个数，count自加
+        count = 0
+        #标记上下左右是否是边界
+        up = False
+        down = False
+        left = False
+        right = False
+        #用于建立一个等大的空矩阵
+        newM1 = []
+        newM2 = []
+        for i in range(len(M)):
+            for j in range(len(M[0])):
+                newM1.append(None)
+            newM2.append(newM1)
+            #加完一行记得把newM1置空
+            newM1 = []
+        for i in range(len(M)):
+            for j in range(len(M[i])):
+                #判断是否有上下左右，左上左下，右上右下
+                if i == 0:
+                    up = True
+                if i == len(M)-1:
+                    down = True
+                if j == 0:
+                    left = True
+                if j == len(M[i])-1:
+                    right = True
+                if up is not True:
+                    sum += M[i-1][j]
+                    count += 1
+                if down is not True:
+                    sum += M[i+1][j]
+                    count += 1
+                if left is not True:
+                    sum += M[i][j-1]
+                    count += 1
+                if right is not True:
+                    sum += M[i][j+1]
+                    count += 1
+                if up is not True and left is not True:
+                    sum += M[i-1][j-1]
+                    count += 1
+                if up is not True and right is not True:
+                    sum += M[i-1][j+1]
+                    count += 1
+                if down is not True and left is not True:
+                    sum += M[i+1][j-1]
+                    count += 1
+                if down is not True and right is not True:
+                    sum += M[i+1][j+1]
+                    count += 1
+                #再加上本身
+                sum += M[i][j]
+                count += 1
+                newM2[i][j] = sum//count
+                #循环一次后初始化
+                sum = 0
+                count = 0
+                up = False
+                down = False
+                left = False
+                right = False
+        return newM2
