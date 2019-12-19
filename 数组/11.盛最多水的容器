@@ -1,0 +1,26 @@
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        #用逆向双指针法
+        j = len(height) - 1
+        i = 0
+        #记录最大值
+        maxcover = 0
+        while True:
+            #最大值和当前值作比较选出新的最大值
+            maxcover = max(maxcover,(min(height[j],height[i]))*(j-i))
+            #相遇了就退出
+            if i == j:
+                break
+            #低的那一方向中间移动，
+            #因为能盛多少水是低的说了算，如果移动高的，只会缩短水平距离，容积只会变小
+            #如果移动低的，虽然距离变小，但最低高度可能变大，容积是有可能变大的
+            #只要用maxcover记录历史最大，再和每次变化的容积比较就好
+            if height[i] < height[j]:
+                i += 1
+            else:
+                j -= 1
+        return maxcover
