@@ -1,0 +1,20 @@
+class Solution(object):
+    def minTimeToVisitAllPoints(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        #很巧妙的思路
+        #先存下起点的横纵坐标
+        x0, x1 = points[0]
+        #需要的时间
+        ans = 0
+        #从第二个点开始循环
+        for i in range(1, len(points)):
+            y0, y1 = points[i]
+            #从一个点到另一个点的时间由Δx和Δy的最大值决定，即切比雪夫距离
+            #只要一心走差值最大的一边即可，另一边要走的话适时加入对角线走法即可
+            #因为对角线就是即走了x又走了y
+            ans += max(abs(x0 - y0), abs(x1 - y1))
+            x0, x1 = points[i]
+        return ans
