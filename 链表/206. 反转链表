@@ -1,0 +1,87 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+#法一
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        #p为迭代指针，rev为结果指针
+
+        #第一层循环
+
+        # res:1->2->3->4->5 
+
+        # res:1->None 
+
+        # p:2->3->4->5 
+
+        # 第二层循环
+
+        # res:2->3->4->5 
+
+        # res:2->1->None 
+
+        # p:3->4->5
+
+        # 第三层循环
+
+        # res:3->4->5 
+
+        # res:3->2->1->None 
+
+        # p:4->5
+
+        # 第四层循环
+
+        # res:4->5
+
+        # res:4->3->2->1->None 
+
+        # p:5
+
+        # 第五层循环
+
+        # res:5 
+
+        # res:5->4->3->2->1->None 
+
+        # p:None
+
+        # end...
+        p, rev = head, None
+        while p:
+            rev, rev.next, p = p, rev, p.next
+        return rev
+
+
+
+#法二
+class Solution(object):
+	def reverseList(self, head):
+		"""
+		:type head: ListNode
+		:rtype: ListNode
+		"""
+		# 申请两个节点，pre和 cur，pre指向None
+		pre = None #pre要成为当前节点的next
+		cur = head #当前节点
+		while cur:
+			# 这里用tmp存cur的next，也就是说tmp是cur向后遍历的排头兵，为cur保存遍历的下一个位置
+			tmp = cur.next
+			# 然后将当前节点指向pre，此时pre已然成为cur的next
+			cur.next = pre
+			# pre和cur继续向后遍历一位
+            #pre将成为下一个cur的next，也就是当前cur
+			pre = cur
+            #排头兵发挥作用，cur成功后移
+			cur = tmp
+		return pre	
+
+
+        
