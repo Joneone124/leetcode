@@ -1,0 +1,9 @@
+class Solution(object):
+    def hammingDistance(self, x, y):
+        """
+        :type x: int
+        :type y: int
+        :rtype: int
+        """
+        #^计算异或，即不同置1，再统计异或的数量
+        return bin(x^y).count('1')
