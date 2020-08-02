@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def mergeTrees(self, t1, t2):
+        """
+        :type t1: TreeNode
+        :type t2: TreeNode
+        :rtype: TreeNode
+        """
+        #如果两节点都存在
+        if t1 and t2 :
+            #相加赋给t1
+            t1.val += t2.val
+            #向下递归
+            t1.left = self.mergeTrees(t1.left, t2.left)
+            t1.right = self.mergeTrees(t1.right, t2.right)
+            #最后递归出来后，返回根节点
+            return t1
+        #有一个节点不存在就返回可能是节点的那个，也可能两个都是null，那就无所谓了
+        return t1 or t2
