@@ -12,7 +12,12 @@ class Solution(object):
         :type t2: TreeNode
         :rtype: TreeNode
         """
-        #如果两节点都存在
+        print('qqq')
+        #如果两节点都存在就相加
+        #若t1,t2中出现至少一个null，则不能再继续递归，因为null不是节点，不存在left和right
+            #这时直接返回最可能不为空的那个（有可能两个都为空）
+            #如果有一个不为空，那正好，返回该节点，就不再递归，该节点后面的节点本来也接在该节点上，
+            #也可能该节点后面也是null，那就无所谓了
         if t1 and t2 :
             #相加赋给t1
             t1.val += t2.val
