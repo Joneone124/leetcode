@@ -15,3 +15,16 @@
             last = max(0, last + prices[i] - prices[i-1])
             profit = max(profit, last)
         return profit
+
+
+
+
+    def maxProfit(self, prices):
+        inf = int(1e9)
+        minprice = inf
+        maxprofit = 0
+        for price in prices:
+            minprice = min(price, minprice)
+            maxprofit = max(price - minprice, maxprofit)
+            
+        return maxprofit
