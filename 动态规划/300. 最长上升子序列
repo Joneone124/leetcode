@@ -1,0 +1,29 @@
+class Solution(object):
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        #这题的子序列可以不连续
+        #意外情况
+        if not nums:
+            return 0
+        #做DP，第一步搞一个列表用于存某种状态
+        #这个dp列表用于对应nums中以每个元素结尾的最长上升子序列个数
+        dp = []
+        #然后写递推关系
+        for i in range(len(nums)):
+            #只要是个正常列表，以任何一个元素结尾的最长上升子序列起码为1（为1是极端情况，整个列表倒序）
+            #所以每个dp的元素先置1
+            dp.append(1)
+            #i里嵌套一层循环
+            for j in range(i):
+                #发现nums[i]比当前的nums[j]大，说明nums[j]可以加入最长上升子序列
+                if nums[i] > nums[j]:
+                    #因为dp中每一个位置的元素代表了nums中对应位置元素结尾的序列长度
+                    #设想一种情况
+                    #nums中在一直递增过程中出现一个数值很小的元素，后面还有大数，以这个元素结尾的序列很短
+                    #需要忽视掉，于是就用max，遇到小元素就忽视掉，拿着之前的大元素结尾的序列长度
+                    dp[i] = max(dp[i], dp[j] + 1)
+                    dp[i] = dp[j]+1
+        return max(dp)
