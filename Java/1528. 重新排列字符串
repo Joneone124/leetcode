@@ -1,0 +1,17 @@
+class Solution {
+    public String restoreString(String s, int[] indices) {
+        //获取字符串长度（也是位置数组长度）
+        int length = s.length();
+
+        //声明一个存储新字符串的数组
+        char[] result = new char[length];
+
+        for (int i = 0; i < length; i++) {
+            //填满数组
+            result[indices[i]] = s.charAt(i);
+        }
+        //数组转字符串
+        return new String(result);
+
+    }
+}
